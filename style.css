@@ -1,0 +1,423 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient(135deg, #0B61A4 0%, #1B1BB3 50%, #00AF64 100%);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+.header {
+    background: linear-gradient(135deg, #0B61A4 0%, #025495 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.add-task-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-inputs-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.form-inputs-row .form-group {
+    flex: 1;
+    min-width: 150px;
+    max-width: 300px;
+}
+
+.form-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #fafafa;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #0B61A4;
+    box-shadow: 0 0 0 3px rgba(11, 97, 164, 0.1);
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.btn:focus {
+    outline: 2px solid #0B61A4;
+    outline-offset: 2px;
+}
+
+.add-task-form .btn-primary {
+    width: 100%;
+}
+
+.btn-primary {
+    background: #00AF64;
+    color: white;
+    padding: 14px 24px;
+}
+
+.btn-primary:hover {
+    background: #007241;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 175, 100, 0.3);
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    flex: 1;
+    min-width: 200px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: #0B61A4;
+    box-shadow: 0 0 0 3px rgba(11, 97, 164, 0.1);
+}
+
+.filter-buttons {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.filter-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.btn-filter {
+    background: #313186;
+    color: white;
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.btn-filter:hover {
+    background: #1B1BB3;
+}
+
+.btn-filter.active {
+    background: #3F92D2;
+    box-shadow: 0 2px 8px rgba(63, 146, 210, 0.3);
+}
+
+.tasks-container {
+    padding: 20px;
+    min-height: 400px;
+}
+
+.task-list {
+    list-style: none;
+}
+
+.task-item {
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    cursor: grab;
+}
+
+.task-item:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: #3F92D2;
+}
+
+.task-item:active {
+    cursor: grabbing;
+}
+
+.task-item.dragging {
+    opacity: 0.5;
+    background: #f8f9fa;
+    border-color: #3F92D2;
+}
+
+.task-item.completed {
+    background: #f8f9fa;
+    opacity: 0.8;
+}
+
+.task-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #00AF64;
+}
+
+.task-content {
+    flex: 1;
+}
+
+.task-text {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.task-text.completed {
+    text-decoration: line-through;
+    color: #6c757d;
+}
+
+.task-date {
+    margin-left: 20px;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit, .btn-delete {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-edit {
+    background: #4F4FD9;
+    color: white;
+}
+
+.btn-edit:hover {
+    background: #1B1BB3;
+    color: white;
+}
+
+.btn-delete {
+    background: #00AF64;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #007241;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #6c757d;
+}
+
+.empty-state h2 {
+    margin-bottom: 10px;
+}
+
+.edit-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex: 1;
+}
+
+.edit-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.edit-date {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.save-btn, .cancel-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.save-btn {
+    background: #00AF64;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #007241;
+}
+
+.cancel-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background: #5a6268;
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        border-radius: 10px;
+    }
+    
+    .header {
+        padding: 20px;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .form-inputs-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    
+    .form-inputs-row .form-group {
+        min-width: unset;
+        max-width: unset;
+    }
+    
+    .controls {
+        flex-direction: column;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+    
+    .btn-filter {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .edit-form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .edit-input,
+    .edit-date {
+        width: 100%;
+    }
+    
+    .save-btn,
+    .cancel-btn {
+        width: 100%;
+    }
+    
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .task-actions {
+        align-self: flex-end;
+    }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
